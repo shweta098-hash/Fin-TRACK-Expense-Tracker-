@@ -72,30 +72,25 @@ Register an account, then add a few transactions.
 | `components/MonthlyChart.jsx` / `CategoryChart.jsx` | Charts built with plain CSS, no chart library. |
 | `utils/` | Formatting helpers and the category list. |
 
-## Key concepts to study (and be ready to explain)
-
-1. **State and re-rendering.** `DashboardPage` keeps `expenses`, `filters` and `formState` in `useState`. Calling a setter makes React re-run the component and update the screen.
-2. **Derived data.** `visibleExpenses` and `totals` are computed from state with `useMemo`. They are not stored separately, so they can never go out of sync.
-3. **Immutable updates.** `setExpenses(prev => prev.map(...))` and `[expense, ...prev]` create new arrays instead of changing the old one. React detects changes by comparing references.
-4. **`useEffect`.** Loads the expenses once after the first render, and restores the login session in `AuthContext`.
-5. **Controlled inputs.** Each input's `value` comes from state and `onChange` updates it.
-6. **Lifting state up.** `Filters` and `ExpenseForm` hold no shared data. The parent passes values and callbacks as props.
-7. **Context.** `AuthContext` avoids passing `user` through every component.
-8. **JWT auth flow.** Login returns a token, the frontend stores it, `client.js` sends it on every request, and the middleware verifies it.
-9. **Authorization.** `WHERE id = $1 AND user_id = $2` is what stops one user touching another user's rows.
-10. **Why `key` on `ExpenseForm`.** It forces a fresh form state when you switch between "add" and "edit this item".
-
-## Known limitations and ideas to extend
-
-- The JWT is in `localStorage`. This is simple and common for learning projects. An httpOnly cookie is safer against XSS, and a good upgrade to discuss.
-- No pagination. Fine for personal use, but a large dataset would need it on the API.
-- No automated tests yet. Good next steps are API tests with Supertest and component tests with Vitest.
-- Deployment idea: frontend on Vercel or Netlify, backend on Render or Railway, database on Neon or Supabase. Set `VITE_API_URL`, `CLIENT_ORIGIN`, `DATABASE_URL` and `JWT_SECRET` in each service's settings.
-
-## Interview questions to practice
-
-- Why a pool of DB connections instead of one per request?
-- What happens between clicking "Add" and the new row appearing?
-- Why hash passwords, and why can't bcrypt be "decrypted"?
-- Why must the server check `user_id` even though the frontend only shows your data?
-- Why is `balance` computed instead of stored?
+Project Structure
+expense-tracker/
+├── backend/
+│   ├── src/
+│   │   ├── middleware/
+│   │   ├── routes/
+│   │   ├── db.js
+│   │   └── server.js
+│   ├── schema.sql
+│   ├── package.json
+│   └── .env.example
+├── frontend/
+│   ├── src/
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   └── utils/
+│   ├── package.json
+│   └── vite.config.js
+├── .gitignore
+└── README.md
