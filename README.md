@@ -72,25 +72,3 @@ Register an account, then add a few transactions.
 | `components/MonthlyChart.jsx` / `CategoryChart.jsx` | Charts built with plain CSS, no chart library. |
 | `utils/` | Formatting helpers and the category list. |
 
-Project Structure
-expense-tracker/
-├── backend/
-│   ├── src/
-│   │   ├── middleware/
-│   │   ├── routes/
-│   │   ├── db.js
-│   │   └── server.js
-│   ├── schema.sql
-│   ├── package.json
-│   └── .env.example
-├── frontend/
-│   ├── src/
-│   │   ├── api/
-│   │   ├── components/
-│   │   ├── context/
-│   │   ├── pages/
-│   │   └── utils/
-│   ├── package.json
-│   └── vite.config.js
-├── .gitignore
-└── README.md
